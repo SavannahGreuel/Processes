@@ -11,6 +11,26 @@
 int main(void)
 {
     // Your code here    
+    int rc = fork();
 
+    if (rc < 0) 
+    {
+        printf("Fork failed.");
+        exit(1);
+    } 
+    else if (rc == 0)
+    {
+        char *myArgs[2];
+        myArgs[0] = "/bin/ls";
+        myArgs[1] = NULL;
+        execv(myArgs[0], myArgs);
+    }
+    else
+    {
+        wait(NULL);
+        printf("In parent.");
+    }
+    
+    
     return 0;
 }
